@@ -7,7 +7,7 @@
  * For more information go to:
  * https://www.lobaro.com/
  *
- * 
+ *
  * MIT License
  *
  * Copyright (c) 2018 Lobaro
@@ -82,7 +82,7 @@ function port2(bytes) {
             b = b.slice(4+dataLen);
         }
     }
-    return decoded = {
+    return {
         "port":2,
         "timestamp": int40_BE(bytes, 0),
         "registers": regs
