@@ -69,3 +69,42 @@ function readVersion(bytes, idx) {
     bytes = bytes.slice(idx || 0);
     return "v" + bytes[0] + "." + bytes[1] + "." + bytes[2];
 }
+
+// EXAMPLE PARSER:
+
+// 0001000566566D38000000000600E600EA0C02400040E740C7
+// 00 01 00 05 66 56 6D 38 00 00 00 00 06 00 E6 00 EA 0C 02 400040E740C7
+/*
+Alarm
+----------
+reason: Button 2 (5)
+sensorTime: 946689638
+vBat: 3306
+temperature: 230
+mems: <64,-6336,-14528>
+button1State: 0
+button2State: 1
+alarmAgeSec: 6
+ */
+function Decoder(bytes, port) {
+    // Decode an uplink message from a buffer
+    // (array) of bytes to an object of fields.
+    var decoded = {
+        "version": readVersion(bytes, 0),
+        "reason": bytes[3],
+        "sensorTime": int64_LE(bytes, 4),
+        "alarmAgeSec": int16_LE(bytes, 12),
+        "temperature": int16_LE(bytes, 14) / 10,
+        "vBat": int16_LE(bytes, 16) / 1000,
+        "button1State": bit(bytes[18], 0),
+        "button2State": bit(bytes[18], 1),
+        "memsX": int16_LE(bytes, 19),
+        "memsY": int16_LE(bytes, 21),
+        "memsZ": int16_LE(bytes, 23),
+    };
+
+    // if (port === 1) decoded.led = bytes[0];
+
+    return decoded;
+}
+
