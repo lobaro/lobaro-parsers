@@ -37,6 +37,21 @@ function readVersion(bytes, i) {
     return "v" + bytes[i] + "." + bytes[i + 1] + "." + bytes[i + 2];
 }
 
+
+function signed(val, bits) {
+    if ((val & 1 << (bits - 1)) > 0) { // value is negative (16bit 2's complement)
+        var mask = Math.pow(2, bits) - 1;
+        val = (~val & mask) + 1; // invert all bits & add 1 => now positive value
+        val = val * -1;
+    }
+    return val;
+}
+
+function int16_LE(bytes, idx) {
+    bytes = bytes.slice(idx || 0);
+    return signed(bytes[1] << 8 | bytes[0] << 0, 16);
+}
+
 function Decoder(bytes, port) {
     // Decode an uplink message from a buffer
     // (array) of bytes to an object of fields.
@@ -56,12 +71,12 @@ function Decoder(bytes, port) {
     if (port === 1 && bytes.length == 9) { // status packet
         decoded.FirmwareVersion = String.fromCharCode.apply(null, bytes.slice(0, 5)); // byte 0-4
         decoded.Vbat = (bytes[5] | bytes[6] << 8) / 1000.0; // byte 6-7 (originally in mV)
-        decoded.Temp = (bytes[7] | bytes[8] << 8) / 10.0; // byte 8-9 (originally in 10th degree C)
+        decoded.Temp = int16_LE(bytes, 7) / 10.0; // byte 8-9 (originally in 10th degree C)
         decoded.msg = "Firmware Version: v" + decoded.FirmwareVersion + " Battery: " + decoded.Vbat + "V Temperature: " + decoded.Temp + "°C";
     } else if (port === 1 && bytes.length == 7) {
         decoded.FirmwareVersion = readVersion(bytes, 0); // byte 0-2
         decoded.Vbat = (bytes[3] | bytes[4] << 8) / 1000.0; // originally in mV
-        decoded.Temp = (bytes[5] | bytes[6] << 8) / 10.0; // originally in 10th degree C
+        decoded.Temp = int16_LE(bytes, 5) / 10.0; // originally in 10th degree C
         decoded.msg = "Firmware Version: " + decoded.FirmwareVersion + " Battery: " + decoded.Vbat + "V Temperature: " + decoded.Temp + "°C";
     }
 
