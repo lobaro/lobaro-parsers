@@ -1,8 +1,7 @@
 {
-  "name": "ttn-data-formats",
-  "version": "1.0.0",
-  "description": "Collection of data decoders in The Things Network for Lobaro devices.",
-  "main": "ttn_stdlib.js",
+  "name": "lobaro-parsers",
+  "version": "0.0.0",
+  "description": "Collection of data decoders for Lobaro devices.",
   "directories": {
     "lib": "lib"
   },
@@ -18,12 +17,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/lobaro/ttn-data-formats.git"
+    "url": "git+https://github.com/lobaro/lobaro-parsers.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/lobaro/ttn-data-formats/issues"
+    "url": "https://github.com/lobaro/lobaro-parsers/issues"
   },
-  "homepage": "https://github.com/lobaro/ttn-data-formats#readme"
+  "homepage": "https://github.com/lobaro/lobaro-parsers#readme"
 }
