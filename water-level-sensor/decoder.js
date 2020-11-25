@@ -60,28 +60,9 @@ function uint_LE(data, bytes, idx) {
 }
 function int_LE(data, bytes, idx) { return signed(uint_LE(data, bytes, idx), bytes * 8); }
 // convenience wrapper functions for each supported datatype with optional index parameter:
-function uint8(bytes, idx) { return bytes[idx||0]; }
-function int8(bytes, idx) { return signed(bytes[idx||0], 8); }
-function uint16_BE(bytes, idx) { return uint_BE(bytes, 2, idx); }
-function uint24_BE(bytes, idx) { return uint_BE(bytes, 3, idx); }
-function uint32_BE(bytes, idx) { return uint_BE(bytes, 4, idx); }
-function uint40_BE(bytes, idx) { return uint_BE(bytes, 5, idx); }
-function uint48_BE(bytes, idx) { return uint_BE(bytes, 6, idx); }
 function int16_BE(bytes, idx) { return int_BE(bytes, 2, idx); }
-function int24_BE(bytes, idx) { return int_BE(bytes, 3, idx); }
-function int32_BE(bytes, idx) { return int_BE(bytes, 4, idx); }
-function int40_BE(bytes, idx) { return int_BE(bytes, 5, idx); }
-function int48_BE(bytes, idx) { return int_BE(bytes, 6, idx); }
-function uint16_LE(bytes, idx) { return uint_LE(bytes, 2, idx); }
-function uint24_LE(bytes, idx) { return uint_LE(bytes, 3, idx); }
 function uint32_LE(bytes, idx) { return uint_LE(bytes, 4, idx); }
-function uint40_LE(bytes, idx) { return uint_LE(bytes, 5, idx); }
-function uint48_LE(bytes, idx) { return uint_LE(bytes, 6, idx); }
 function int16_LE(bytes, idx) { return int_LE(bytes, 2, idx); }
-function int24_LE(bytes, idx) { return int_LE(bytes, 3, idx); }
-function int32_LE(bytes, idx) { return int_LE(bytes, 4, idx); }
-function int40_LE(bytes, idx) { return int_LE(bytes, 5, idx); }
-function int48_LE(bytes, idx) { return int_LE(bytes, 6, idx); }
 function float32FromInt(asInt) {
     var sign = (asInt & 0x80000000) ? -1 : 1;
     var exponent = ((asInt >> 23) & 0xFF) - 127;
@@ -96,7 +77,6 @@ function float32FromInt(asInt) {
     } else significand = (significand | (1 << 23)) / (1 << 23);
     return sign * significand * Math.pow(2, exponent);
 }
-function float32_BE(bytes, idx) { return float32FromInt(uint32_BE(bytes, idx)); }
 function float32_LE(bytes, idx) { return float32FromInt(uint32_LE(bytes, idx)); }
 
 // Status Message parsing functions, source: https://github.com/lobaro/lobaro-parsers/blob/master/lib/status.js
@@ -156,7 +136,9 @@ function status_Decoder(bytes) {
     };
 }
 function status_update_device(decoded) {
-    if (!Device || !Device.setProperty) {
+    try {
+        Device.setProperty;
+    } catch (e) {
         // only works in Lobaro Platform parser
         return;
     }
@@ -169,7 +151,11 @@ function status_update_device(decoded) {
         }
     }
     if (decoded["latitude"] && decoded["longitude"]) {
-        Device.setLocation(decoded["latitude"], decoded["longitude"]);
+        try {
+            Device.setLocation(decoded["latitude"], decoded["longitude"]);
+        } catch(e) {
+            // only works in Lobaro Platform parser
+        }
     }
 }
 // Wrapper for Lobaro Platform
@@ -189,13 +175,14 @@ function Decode(fPort, bytes) {
 }
 
 // Wrapper for Digimondo niota.io
-if (module && module.exports) {
+try {
     module.exports = function (payload, meta) {
-        const port = meta.lora.fport;
-        const buf = Buffer.from(payload, 'hex');
-
+        var port = meta.lora.fport;
+        var buf = Buffer.from(payload, 'hex');
         return Decoder(buf, port);
     }
+} catch(e) {
+    // module not declared
 }
 
 /* Port 1: Data */
