@@ -1,3 +1,24 @@
+/**
+ * Parser for LOB-GW-WMBUS-LW and LOB-GW-WMBUS-LW2
+ *
+ * Copyright (c) by Lobaro GmbH 2020 - https://www.lobaro.com
+ * For Licence and further information see https://github.com/lobaro/lobaro-parsers
+ *
+ * This is a JavaScript parser to be used for the Lobaro Wireless M-Bus Bridge (LoRaWAN).
+ *
+ * The latest version of this parser can be found at:
+ * https://github.com/lobaro/lobaro-parsers/tree/master/wmbus-bridge
+ *
+ * Device online manual:
+ * https://doc.lobaro.com/doc/lorawan-devices/wireless-m-bus-bridge-v2-lorawan
+ *
+ * This parser can be used in:
+ *   - The IoT Lobaro Platform
+ *   - The Things Network (TTN)
+ *   - ChirpStack (former LoRaServer)
+ *   - niota.io (Digimondo)
+ */
+
 function readVersion(bytes, i) {
     if (bytes.length < 3) {
         return null;
@@ -45,17 +66,18 @@ function Parse(input) {
     return decoded;
 }
   
-// Wrapper for Loraserver / ChirpStack
+// Wrapper for ChirpStack (former Loraserver)
 function Decode(fPort, bytes) {
     return Decoder(bytes, fPort);
 }
-  
+
 // Wrapper for Digimondo niota.io
-// Uncomment only when used in niota!
-/*
-module.exports = function (payload, meta) {
-    const port = meta.lora.fport;
-    const buf = Buffer.from(payload, 'hex');
-  
-    return Decoder(buf, port);
-}*/
+try {
+    module.exports = function (payload, meta) {
+        var port = meta.lora.fport;
+        var buf = Buffer.from(payload, 'hex');
+        return Decoder(buf, port);
+    }
+} catch(e) {
+    // module not declared
+}
