@@ -21,21 +21,18 @@ function Decoder(bytes, port) {
 
 
     var decoded = {
-        "length": bytes.length,
-
         "version": readVersion(bytes, 0),
-        "shuntValue": bytes[3],
+        "shuntValue": bytes[3] / 100,
         "amplifierGain": bytes[4],
-        "vsysCurrent": uint16_BE(bytes, 5),
-        "vsysMin": uint16_BE(bytes, 7),
-        "vsysMax": uint16_BE(bytes, 9),
-
-        "vsysRms": uint16_BE(bytes, 11),
-        "isecCurrent": uint16_BE(bytes, 13),
-        "isecAvgLong": uint16_BE(bytes, 15),
-        "isecAvgShort": uint16_BE(bytes, 17),
-        "isecMin": uint16_BE(bytes, 19),
-        "isecMax": uint16_BE(bytes, 21),
+        "vsysCurrent": uint16_BE(bytes, 5) / 10,
+        "vsysMin": uint16_BE(bytes, 7) / 10,
+        "vsysMax": uint16_BE(bytes, 9) / 10,
+        "vsysRms": uint16_BE(bytes, 11) / 10,
+        "isecCurrent": uint16_BE(bytes, 13) / 10,
+        "isecAvgLong": uint16_BE(bytes, 15) / 100,
+        "isecAvgShort": uint16_BE(bytes, 17) / 100,
+        "isecMin": uint16_BE(bytes, 19) / 100,
+        "isecMax": uint16_BE(bytes, 21) / 100,
         "measurmentsCounter": uint16_BE(bytes, 23),
         "lastUploadSec": uint16_BE(bytes, 25),
     };
@@ -43,7 +40,7 @@ function Decoder(bytes, port) {
     Device.setProperty("version", decoded.version);
     Device.setProperty("shuntValue", decoded.shuntValue);
     Device.setProperty("amplifierGain", decoded.amplifierGain);
-    // if (port === 1) decoded.led = bytes[0];
+
 
     return decoded;
 }
