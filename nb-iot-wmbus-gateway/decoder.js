@@ -114,6 +114,11 @@ function NB_ParseUDPDataQuery(input) {
     return null;
 }
 
+function hexToBytes(hex) {
+    for (var bytes = [], c = 0; c < hex.length; c += 2)
+        bytes.push(parseInt(hex.substr(c, 2), 16));
+    return bytes;
+}
 
 function NB_ParseDataQuery(input) {
     NB_ExtractStatus(input);
@@ -122,7 +127,7 @@ function NB_ParseDataQuery(input) {
         return null;
     }
 
-    var wmbus = Parser.parseWmbus(parseBase64(input.d.telegram));
+    var wmbus = Parser.parseWmbus(hexToBytes(input.d.telegram));
 
     // Decode an incoming message to an object of fields.
     return {
