@@ -114,11 +114,6 @@ function NB_ParseUDPDataQuery(input) {
     return null;
 }
 
-function hexToBytes(hex) {
-    for (var bytes = [], c = 0; c < hex.length; c += 2)
-        bytes.push(parseInt(hex.substr(c, 2), 16));
-    return bytes;
-}
 
 function NB_ParseDataQuery(input) {
     NB_ExtractStatus(input);
@@ -127,7 +122,7 @@ function NB_ParseDataQuery(input) {
         return null;
     }
 
-    var wmbus = Parser.parseWmbus(hexToBytes(input.d.telegram));
+    var wmbus = Parser.parseWmbus(parseBase64(input.d.telegram));
 
     // Decode an incoming message to an object of fields.
     return {
@@ -224,32 +219,57 @@ function LW_Parse(input) {
     var bytes = parseBase64(input.data);
     var port = input.fPort;
     var decoded = null;
+    var lastFcnt = Device.getProperty("status.fcnt")
+    var errInSplit = Device.getProperty("lorawan.errInSplit")
 
     Device.setProperty("status.SF", input.spreadingFactor);
     Device.setProperty("status.RSSI", input.rssi);
     Device.setProperty("status.fcnt", input.fCnt);
 
-
-    if (port >= 11 && port <= 99) {
+    if (port == 11){
+        Device.setProperty("lorawan.errInSplit", false);
+        Parser.clearPartial("wmbus");
+        var wmbus = Parser.parseWmbus(bytes);
+        decoded = {};
+        decoded.mbus = wmbus;
+    } else if (port >= 12 && port <= 99) {
         var part = Math.floor(port / 10);
         var total = port % 10;
         //decoded.part = part;
         //decoded.total = total;
         if (part == 1) {
+            Device.setProperty("lorawan.errInSplit", false);
             Parser.clearPartial("wmbus");
-        }
-        if (part < total) {
             Parser.joinPartial(bytes, "wmbus");
+        } else if (part < total) {
+            if (input.fCnt - lastFcnt == 1 && !errInSplit) {
+                Parser.joinPartial(bytes, "wmbus");
+                // return nil to avoid empty entry in device data
+                decoded = null;
+            } else {
+                Device.setProperty("lorawan.errInSplit", true);
+                Parser.clearPartial("wmbus");
+                // return nil to avoid empty entry in device data
+                decoded = null;
+            }
         } else if (part == total) {
-            decoded = {};
-            var joined = Parser.joinPartial(bytes, "wmbus");
-            Parser.clearPartial("wmbus");
-            var wmbus = Parser.parseWmbus(joined);
-            decoded.mbus = wmbus;
+            if (input.fCnt - lastFcnt == 1 && !errInSplit) {
+                decoded = {};
+                var joined = Parser.joinPartial(bytes, "wmbus");
+                Parser.clearPartial("wmbus");
+                var wmbus = Parser.parseWmbus(joined);
+                decoded.mbus = wmbus;
+            } else {
+                Device.setProperty("lorawan.errInSplit", true);
+                Parser.clearPartial("wmbus");
+                // return nil to avoid emptry entry in device data
+                decoded = null;
+            }
         }
     } else if(port == 1) {
         // status
-        decoded = LW_Decoder(bytes, port);
+        decoded = Decoder(bytes, port);
+        Device.setProperty("lorawan.errInSplit", false);
         Device.setProperty("status.firmware", decoded.FirmwareVersion);
         Device.setProperty("status.voltage", decoded.Vbat);
         // Only show temperature when value is plausible
@@ -257,7 +277,7 @@ function LW_Parse(input) {
             Device.setProperty("status.temperature", decoded.Temp);
         }
 
-        // return nil to avoid emptry entry in device data
+        // return nil to avoid empty entry in device data
         decoded = null;
     } else {
         // unknown port or port 0
