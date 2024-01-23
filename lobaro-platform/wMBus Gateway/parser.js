@@ -20,183 +20,184 @@ function NB_ESM_reason(esm){
     switch (esm){
         case 0:
             return "-";
-        case 0b00001000:
-            return "Operator Determined Barring";
-        case 0b00011010:
-            return  "Insufficient resources";
-        case 0b00011011:
-            return  "Missing or unknown APN";
-        case 0b00011100:
-            return  "Unknown PDN type";
-        case 0b00011101:
-            return  "User authentication failed";
-        case 0b00011110:
-            return  "Request rejected by Serving GW or PDN GW";
-        case 0b00011111:
-            return  "Request rejected, unspecified";
-        case 0b00100000:
-            return  "Service option not supported";
-        case 0b00100001:
-            return  "Requested service option not subscribed";
-        case 0b00100010:
-            return  "Service option temporally out of order";
-        case 0b00100011:
-            return  "PTI already in use";
-        case 0b00100100:
-            return  "Regular deactivation";
-        case 0b00100101:
-            return  "EPS QoS not accepted";
-        case 0b00100110:
-            return  "Network failure";
-        case 0b00100111:
-            return  "Reactivation requested";
-        case 0b00101001:
-            return  "Semantic error in the TFT operation";
-        case 0b00101010:
-            return  "Syntactical error in the TFT operation";
-        case 0b00101011:
-            return  "Invalid EPS bearer identity";
-        case 0b00101100:
-            return  "Semantic errors in packet filters";
-        case 0b00101101:
-            return  "Syntactical errors in packet filters";
-        case 0b00101110:
-            return  "Unused, protocol error, unspecified";
-        case 0b00101111:
-            return  "PTI mismatch";
-        case 0b00110001:
-            return  "Last PDN disconnection not allowed";
-        case 0b00110010:
-            return  "PDN type IPv4 only allowed";
-        case 0b00110011:
-            return  "PDN type IPv6 only allowed";
-        case 0b00111001:
-            return  "PDN type IPv4v6 only allowed";
-        case 0b00111010:
-            return  "PDN type non IP only allowed";
-        case 0b00110100:
-            return  "Single address bearers only allowed";
-        case 0b00110101:
-            return  "ESM information not received";
-        case 0b00110110:
-            return  "PDN connection does not exist";
-        case 0b00110111:
-            return  "Multiple PDN connections for a given APN not allowed";
-        case 0b00111000:
-            return  "Collision with network initiated request";
-        case 0b00111011:
-            return  "Unsupported QCI value";
-        case 0b00111100:
-            return  "Bearer handling not supported";
-        case 0b01000001:
-            return  "Maximum number of EPS bearers reached";
-        case 0b01000010:
-            return  "Requested APN not supported in current RAT and PLMN combination";
-        case 0b01010001:
-            return  "Invalid PTI value";
-        case 0b01011111:
-            return  "Semantically incorrect message";
-        case 0b01100000:
-            return  "Invalid mandatory information";
-        case 0b01100001:
-            return  "Message type non-existent or not implemented";
-        case 0b01100010:
-            return  "Message type not compatible with the protocol state";
-        case 0b01100011:
-            return  "Information element non-existent or not implemented";
-        case 0b01100100:
-            return  "Conditional IE error";
-        case 0b01100101:
-            return  "Message not compatible with the protocol state";
-        case 0b01101111:
-            return  "Protocol error, unspecified";
-        case 0b01110000:
-            return  "APN restriction value incompatible with active EPS bearer context";
-        case 0b01110001:
-            return  "Multiple accesses to a PDN connection not allowed";
+        case parseInt("00001000",2):
+            return "Operator Determined Barring"+" ("+esm+")";
+        case parseInt("00011010",2):
+            return  "Insufficient resources"+" ("+esm+")";
+        case parseInt("00011011",2):
+            return  "Missing or unknown APN"+" ("+esm+")";
+        case parseInt("00011100",2):
+            return  "Unknown PDN type"+" ("+esm+")";
+        case parseInt("00011101",2):
+            return  "User authentication failed"+" ("+esm+")";
+        case parseInt("00011110",2):
+            return  "Request rejected by Serving GW or PDN GW"+" ("+esm+")";
+        case parseInt("00011111",2):
+            return  "Request rejected, unspecified"+" ("+esm+")";
+        case parseInt("00100000",2):
+            return  "Service option not supported"+" ("+esm+")";
+        case parseInt("00100001",2):
+            return  "Requested service option not subscribed"+" ("+esm+")";
+        case parseInt("00100010",2):
+            return  "Service option temporally out of order"+" ("+esm+")";
+        case parseInt("00100011",2):
+            return  "PTI already in use"+" ("+esm+")";
+        case parseInt("00100100",2):
+            return  "Regular deactivation"+" ("+esm+")";
+        case parseInt("00100101",2):
+            return  "EPS QoS not accepted"+" ("+esm+")";
+        case parseInt("00100110",2):
+            return  "Network failure"+" ("+esm+")";
+        case parseInt("00100111",2):
+            return  "Reactivation requested"+" ("+esm+")";
+        case parseInt("00101001",2):
+            return  "Semantic error in the TFT operation"+" ("+esm+")";
+        case parseInt("00101010",2):
+            return  "Syntactical error in the TFT operation"+" ("+esm+")";
+        case parseInt("00101011",2):
+            return  "Invalid EPS bearer identity"+" ("+esm+")";
+        case parseInt("00101100",2):
+            return  "Semantic errors in packet filters"+" ("+esm+")";
+        case parseInt("00101101",2):
+            return  "Syntactical errors in packet filters"+" ("+esm+")";
+        case parseInt("00101110",2):
+            return  "Unused, protocol error, unspecified"+" ("+esm+")";
+        case parseInt("00101111",2):
+            return  "PTI mismatch"+" ("+esm+")";
+        case parseInt("00110001",2):
+            return  "Last PDN disconnection not allowed"+" ("+esm+")";
+        case parseInt("00110010",2):
+            return  "PDN type IPv4 only allowed"+" ("+esm+")";
+        case parseInt("00110011",2):
+            return  "PDN type IPv6 only allowed"+" ("+esm+")";
+        case parseInt("00111001",2):
+            return  "PDN type IPv4v6 only allowed"+" ("+esm+")";
+        case parseInt("00111010",2):
+            return  "PDN type non IP only allowed"+" ("+esm+")";
+        case parseInt("00110100",2):
+            return  "Single address bearers only allowed"+" ("+esm+")";
+        case parseInt("00110101",2):
+            return  "ESM information not received"+" ("+esm+")";
+        case parseInt("00110110",2):
+            return  "PDN connection does not exist"+" ("+esm+")";
+        case parseInt("00110111",2):
+            return  "Multiple PDN connections for a given APN not allowed"+" ("+esm+")";
+        case parseInt("00111000",2):
+            return  "Collision with network initiated request"+" ("+esm+")";
+        case parseInt("00111011",2):
+            return  "Unsupported QCI value"+" ("+esm+")";
+        case parseInt("00111100",2):
+            return  "Bearer handling not supported"+" ("+esm+")";
+        case parseInt("01000001",2):
+            return  "Maximum number of EPS bearers reached"+" ("+esm+")";
+        case parseInt("01000010",2):
+            return  "Requested APN not supported in current RAT and PLMN combination"+" ("+esm+")";
+        case parseInt("01010001",2):
+            return  "Invalid PTI value"+" ("+esm+")";
+        case parseInt("01011111",2):
+            return  "Semantically incorrect message"+" ("+esm+")";
+        case parseInt("01100000",2):
+            return  "Invalid mandatory information"+" ("+esm+")";
+        case parseInt("01100001",2):
+            return  "Message type non-existent or not implemented"+" ("+esm+")";
+        case parseInt("01100010",2):
+            return  "Message type not compatible with the protocol state"+" ("+esm+")";
+        case parseInt("01100011",2):
+            return  "Information element non-existent or not implemented"+" ("+esm+")";
+        case parseInt("01100100",2):
+            return  "Conditional IE error"+" ("+esm+")";
+        case parseInt("01100101",2):
+            return  "Message not compatible with the protocol state"+" ("+esm+")";
+        case parseInt("01101111",2):
+            return  "Protocol error, unspecified"+" ("+esm+")";
+        case parseInt("01110000",2):
+            return  "APN restriction value incompatible with active EPS bearer context"+" ("+esm+")";
+        case parseInt("01110001",2):
+            return  "Multiple accesses to a PDN connection not allowed"+" ("+esm+")";
         default:
-            return "esm unknown value";
+            return "esm unknown value"+" ("+esm+")";
     }
+
 }
 
 function NB_EMM_reason(emm){
     switch (emm) {
         case 0:
             return "-";
-        case 0b00000010:
-            return "IMSI unknown in HSS";
-        case 0b00000011:
-            return "Illegal UE";
-        case 0b00000101:
-            return "IMEI not accepted";
-        case 0b00000110:
-            return "Illegal ME";
-        case 0b00000111:
-            return "EPS services not allowed";
-        case 0b00001000:
-            return "EPS services and non-EPS services not allowed";
-        case 0b00001001:
-            return "UE identity cannot be derived by the network";
-        case 0b00001010:
-            return "Implicitly detached";
-        case 0b00001011:
-            return "PLMN not allowed";
-        case 0b00001100:
-            return "Tracking Area not allowed";
-        case 0b00001101:
-            return "Romaing not allowed in this Tracking Area";
-        case 0b00001110:
-            return "EPS services not allowed in this tracking area";
-        case 0b00001111:
-            return "No Suitable Cells in tracking area";
-        case 0b00010000:
-            return "MSC temporarily not reachable";
-        case 0b00010001:
-            return "Network failure";
-        case 0b00010010:
-            return "CS domain not available";
-        case 0b00010011:
-            return "ESM failure";
-        case 0b00010100:
-            return "MAC failure";
-        case 0b00010101:
-            return "Synch failure";
-        case 0b00010110:
-            return "Congestion";
-        case 0b00010111:
-            return "UE security capabilities mismatch";
-        case 0b00011000:
-            return "Security mode rejected, unspecified";
-        case 0b00011001:
-            return "Not authorized for this CSG";
-        case 0b00011010:
-            return "Non-EPS authentication unacceptable";
-        case 0b00100011:
-            return "Requested service option not authorized in this PLMN";
-        case 0b00100111:
-            return "CS service temporarily not available";
-        case 0b00101000:
-            return "No EPS bearer context activated";
-        case 0b00101010:
-            return "Severe network failure";
-        case 0b01011111:
-            return "Semantically incorrect message";
-        case 0b01100000:
-            return "Invalid mandatory information";
-        case 0b01100001:
-            return "Message type non-existent or not implemented";
-        case 0b01100010:
-            return "Message type not compatible with the protocol state";
-        case 0b01100011:
-            return "Information element non-existent or not implemented";
-        case 0b01100100:
-            return "Conditional IE error";
-        case 0b01100101:
-            return "Message not compatible with the protocol state";
-        case 0b01101111:
-            return "Protocol error, unspecified";
+        case parseInt("00000010",2):
+            return "IMSI unknown in HSS"+" ("+emm+")";
+        case parseInt("00000011",2):
+            return "Illegal UE"+" ("+emm+")";
+        case parseInt("00000101",2):
+            return "IMEI not accepted"+" ("+emm+")";
+        case parseInt("00000110",2):
+            return "Illegal ME"+" ("+emm+")";
+        case parseInt("00000111",2):
+            return "EPS services not allowed"+" ("+emm+")";
+        case parseInt("00001000",2):
+            return "EPS services and non-EPS services not allowed"+" ("+emm+")";
+        case parseInt("00001001",2):
+            return "UE identity cannot be derived by the network"+" ("+emm+")";
+        case parseInt("00001010",2):
+            return "Implicitly detached"+" ("+emm+")";
+        case parseInt("00001011",2):
+            return "PLMN not allowed"+" ("+emm+")";
+        case parseInt("00001100",2):
+            return "Tracking Area not allowed"+" ("+emm+")";
+        case parseInt("00001101",2):
+            return "Romaing not allowed in this Tracking Area"+" ("+emm+")";
+        case parseInt("00001110",2):
+            return "EPS services not allowed in this tracking area"+" ("+emm+")";
+        case parseInt("00001111",2):
+            return "No Suitable Cells in tracking area"+" ("+emm+")";
+        case parseInt("00010000",2):
+            return "MSC temporarily not reachable"+" ("+emm+")";
+        case parseInt("00010001",2):
+            return "Network failure"+" ("+emm+")";
+        case parseInt("00010010",2):
+            return "CS domain not available"+" ("+emm+")";
+        case parseInt("00010011",2):
+            return "ESM failure"+" ("+emm+")";
+        case parseInt("00010100",2):
+            return "MAC failure"+" ("+emm+")";
+        case parseInt("00010101",2):
+            return "Synch failure"+" ("+emm+")";
+        case parseInt("00010110",2):
+            return "Congestion"+" ("+emm+")";
+        case parseInt("00010111",2):
+            return "UE security capabilities mismatch"+" ("+emm+")";
+        case parseInt("00011000",2):
+            return "Security mode rejected, unspecified"+" ("+emm+")";
+        case parseInt("00011001",2):
+            return "Not authorized for this CSG"+" ("+emm+")";
+        case parseInt("00011010",2):
+            return "Non-EPS authentication unacceptable"+" ("+emm+")";
+        case parseInt("00100011",2):
+            return "Requested service option not authorized in this PLMN"+" ("+emm+")";
+        case parseInt("00100111",2):
+            return "CS service temporarily not available"+" ("+emm+")";
+        case parseInt("00101000",2):
+            return "No EPS bearer context activated"+" ("+emm+")";
+        case parseInt("00101010",2):
+            return "Severe network failure"+" ("+emm+")";
+        case parseInt("01011111",2):
+            return "Semantically incorrect message"+" ("+emm+")";
+        case parseInt("01100000",2):
+            return "Invalid mandatory information"+" ("+emm+")";
+        case parseInt("01100001",2):
+            return "Message type non-existent or not implemented"+" ("+emm+")";
+        case parseInt("01100010",2):
+            return "Message type not compatible with the protocol state"+" ("+emm+")";
+        case parseInt("01100011",2):
+            return "Information element non-existent or not implemented"+" ("+emm+")";
+        case parseInt("01100100",2):
+            return "Conditional IE error"+" ("+emm+")";
+        case parseInt("01100101",2):
+            return "Message not compatible with the protocol state"+" ("+emm+")";
+        case parseInt("01101111",2):
+            return "Protocol error, unspecified"+" ("+emm+")";
         default:
-            return "EMM unknown";
+            return "EMM unknown"+" ("+emm+")";
     }
 }
 
@@ -233,6 +234,7 @@ function NB_UpdateDerivedStatistics() {
     }
 }
 
+// currently also parses the status
 function NB_ParseDeviceQuery(input) {
     for (var key in input.d) {
         var v = input.d[key];
