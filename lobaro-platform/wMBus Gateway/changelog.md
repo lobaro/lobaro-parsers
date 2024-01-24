@@ -7,6 +7,9 @@ This parser may be used for
 - Lobaro GW Dinrail
 
 # Changelog
+## 0.0.2 - 2024-01-24
+Add handling of uplink types 'wmbus' and 'sync-config'.
+
 ## 0.0.1 - 2024-01-23
 Initial commit taken from public Lobaro Platform instance and device type `wMBUS Gateway`.
 ### Added

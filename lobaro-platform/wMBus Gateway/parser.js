@@ -17,6 +17,7 @@ function NB_SetBatteryStatus(vbat) {
 }
 
 function NB_ESM_reason(esm){
+
     switch (esm){
         case 0:
             return "-";
@@ -121,6 +122,7 @@ function NB_ESM_reason(esm){
 }
 
 function NB_EMM_reason(emm){
+
     switch (emm) {
         case 0:
             return "-";
@@ -199,6 +201,7 @@ function NB_EMM_reason(emm){
         default:
             return "EMM unknown"+" ("+emm+")";
     }
+
 }
 
 
@@ -514,6 +517,7 @@ function NB_Parse(input) {
         case "config":
             return NB_ParseConfigQuery(input);
         case "data":
+        case "wmbus":
             return NB_ParseDataQuery(input);
         case "status":
             return NB_ParseStatusQuery(input);
@@ -522,6 +526,7 @@ function NB_Parse(input) {
         case "env":
             return NB_ExtractEnvData(input);
         case "receives":
+        case "sync-config":
             return null; // todo
         default:
             throw new Error("Unknown message type: '" + query + "'");
