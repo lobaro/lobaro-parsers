@@ -229,7 +229,7 @@ function NB_UpdateDerivedStatistics() {
     var sleepSecs = Device.getProperty("device.sleepTime");
 
     if (awakeSecs && sleepSecs) {
-        Device.setProperty("platform.sleepRatioPercent", parseFloat((sleepSecs / (awakeSecs+sleepSecs)) * 100).toFixed(2));
+        Device.setProperty("platform.sleepRatioPercent", parseFloat((1-(sleepSecs / (awakeSecs+sleepSecs))) * 100).toFixed(2));
     }
 
     // extract sector and tower id from cell-id
