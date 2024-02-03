@@ -1,4 +1,4 @@
-// This is v0.0.3
+// This is v0.0.4
 // Source: https://github.com/lobaro/lobaro-parsers/tree/master/lobaro-platform/wMBus%20Gateway
 
 function NB_SetBatteryStatus(vbat) {
@@ -229,7 +229,7 @@ function NB_UpdateDerivedStatistics() {
     var sleepSecs = Device.getProperty("device.sleepTime");
 
     if (awakeSecs && sleepSecs) {
-        Device.setProperty("platform.sleepRatioPercent", parseFloat((awakeSecs / sleepSecs) * 100).toFixed(2));
+        Device.setProperty("platform.sleepRatioPercent", parseFloat((sleepSecs / (awakeSecs+sleepSecs)) * 100).toFixed(2));
     }
 
     // extract sector and tower id from cell-id

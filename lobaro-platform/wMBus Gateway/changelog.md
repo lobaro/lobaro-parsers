@@ -7,6 +7,10 @@ This parser may be used for
 - Lobaro GW Dinrail
 
 # Changelog
+
+## 0.0.4 - 2024-02-03
+* Fix sleepRatioPercent
+
 ## 0.0.3 - 2024-01-28
 * Add header to js file
 * For EMM and ESM error code parsing threat 255 as 0 as not set.
