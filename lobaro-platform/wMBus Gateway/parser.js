@@ -268,6 +268,9 @@ function NB_ParseDeviceQuery(input) {
             case "ESM_r":
                 Device.setProperty("device.ESM_r", NB_ESM_reason(v));
                 continue;
+            case "hFree":
+                Device.setProperty("platform.device.heapAllocs", input.d.hAlloc - input.d.hFree);
+                continue;
         }
         Device.setProperty("device." + key, v);
     }
@@ -295,10 +298,6 @@ function NB_ExtractStatus(input) {
         }
         if (d.temperature) {
             Device.setProperty("device.temperature", d.temperature / 10.0);
-        }
-
-        if(d.hFree && d.hAlloc){
-            Device.setProperty("platform.device.heapAllocs", d.hAlloc-d.hFree);
         }
     }
 }
