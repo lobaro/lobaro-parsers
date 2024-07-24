@@ -1,4 +1,4 @@
-// This is v0.0.4
+// This is v0.0.5
 // Source: https://github.com/lobaro/lobaro-parsers/tree/master/lobaro-platform/wMBus%20Gateway
 
 function NB_SetBatteryStatus(vbat) {
@@ -25,7 +25,7 @@ function NB_ESM_reason(esm){
         case 0:
             return "-";
         case 255:
-            return "-";     
+            return "-";
         case parseInt("00001000",2):
             return "Operator Determined Barring"+" ("+esm+")";
         case parseInt("00011010",2):
@@ -132,7 +132,7 @@ function NB_EMM_reason(emm){
         case 0:
             return "-";
         case 255:
-            return "-";   
+            return "-";
         case parseInt("00000010",2):
             return "IMSI unknown in HSS"+" ("+emm+")";
         case parseInt("00000011",2):
@@ -295,6 +295,10 @@ function NB_ExtractStatus(input) {
         }
         if (d.temperature) {
             Device.setProperty("device.temperature", d.temperature / 10.0);
+        }
+
+        if(d.hFree && d.hAlloc){
+            Device.setProperty("platform.device.heapAllocs", d.hAlloc-d.hFree);
         }
     }
 }

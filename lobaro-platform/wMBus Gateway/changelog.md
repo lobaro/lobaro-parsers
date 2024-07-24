@@ -8,6 +8,9 @@ This parser may be used for
 
 # Changelog
 
+## 0.0.5 - 2024-07-24
+* Add support for `platform.device.heapAllocs` for firmware >= `0.25.3`
+
 ## 0.0.4 - 2024-02-03
 * Fix sleepRatioPercent
 
