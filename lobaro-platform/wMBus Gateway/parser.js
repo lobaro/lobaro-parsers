@@ -270,6 +270,7 @@ function NB_ParseDeviceQuery(input) {
                 continue;
             case "hFree":
                 Device.setProperty("platform.device.heapAllocs", input.d.hAlloc - input.d.hFree);
+                Device.setProperty("device." + key, v);
                 continue;
         }
         Device.setProperty("device." + key, v);
